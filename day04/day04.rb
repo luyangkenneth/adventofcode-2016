@@ -27,6 +27,16 @@ puts "Part 1: #{sum}"
 
 # Part 2
 
-id = 0
+print 'Part 2: '
 
-puts "Part 2: #{id}"
+File.foreach('input.txt') do |line|
+  string = line[0..-13]
+  id = line[-11, 3].to_i
+  shift = id % 26
+
+  string = string.each_char.map do |c|
+    c == '-' ? ' ' : (c.ord + shift <= 'z'.ord ? c.ord + shift : c.ord + shift - 26).chr
+  end.join
+
+  puts "#{id} #{string}" if string.include?('north')
+end
